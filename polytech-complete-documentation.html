@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polytech Project - Complete Code Documentation</title>
+    <meta name="description"
+        content="Complete code documentation for the Polytech Capgemini project, showcasing all source files and their implementation.">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Highlight.js for Syntax Highlighting -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --dark-bg: #0f0f23;
+            --darker-bg: #0a0a15;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-accent: #667eea;
+            --code-bg: rgba(0, 0, 0, 0.3);
+            --hover-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundMove {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-50px, -50px);
+            }
+        }
+
+        /* Header */
+        header {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 100px;
+            z-index: 99;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: var(--hover-bg);
+            border-color: var(--text-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn.active {
+            background: var(--primary-gradient);
+            border-color: transparent;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+            border-color: var(--text-accent);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* File Categories */
+        .category-section {
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            user-select: none;
+            padding: 1rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .category-header:hover {
+            border-color: var(--text-accent);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .category-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .file-count {
+            margin-left: auto;
+            padding: 0.5rem 1rem;
+            background: var(--success-gradient);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .toggle-icon.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        /* File Cards */
+        .files-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .file-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .file-card:hover {
+            border-color: var(--text-accent);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .file-header {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-header:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .file-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .copy-btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .expand-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .expand-icon.expanded {
+            transform: rotate(180deg);
+        }
+
+        .code-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .code-container.expanded {
+            max-height: 10000px;
+        }
+
+        pre {
+            margin: 0;
+            padding: 0;
+            background: var(--code-bg);
+            overflow-x: auto;
+        }
+
+        pre code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: block;
+            padding: 1.5rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--text-accent);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        #searchInput::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-gradient);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--success-gradient);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            font-weight: 500;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .nav-content {
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .file-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .file-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-animation"></div>
+
+    <header>
+        <div class="header-content">
+            <h1>🎓 Polytech Project - Complete Documentation</h1>
+            <p class="subtitle">Capgemini Backend | Spring Boot Application | Full Source Code Reference</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <button class="nav-btn active" onclick="filterCategory('all')">📚 All Files</button>
+            <button class="nav-btn" onclick="filterCategory('main')">🚀 Application</button>
+            <button class="nav-btn" onclick="filterCategory('config')">⚙️ Configuration</button>
+            <button class="nav-btn" onclick="filterCategory('controller')">🎮 Controllers</button>
+            <button class="nav-btn" onclick="filterCategory('service')">⚡ Services</button>
+            <button class="nav-btn" onclick="filterCategory('entity')">🗃️ Entities</button>
+            <button class="nav-btn" onclick="filterCategory('dto')">📦 DTOs</button>
+            <button class="nav-btn" onclick="filterCategory('repository')">💾 Repositories</button>
+            <button class="nav-btn" onclick="filterCategory('mapper')">🔄 Mappers</button>
+            <button class="nav-btn" onclick="filterCategory('exception')">⚠️ Exceptions</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search files by name or content..."
+                onkeyup="searchFiles()">
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">37</div>
+                <div class="stat-label">Total Java Files</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">REST Controllers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Business Services</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">JPA Entities</div>
+            </div>
+        </div>
+
+        <div id="fileContainer">
+            <!-- Files will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <div class="toast" id="toast">✓ Code copied to clipboard!</div>
+
+    <script src="file-contents.js"></script>
+    <script>
+        // Category icons and titles
+        const categoryIcons = {
+            main: '🚀',
+            config: '⚙️',
+            controller: '🎮',
+            dto: '📦',
+            entity: '🗃️',
+            exception: '⚠️',
+            mapper: '🔄',
+            repository: '💾',
+            service: '⚡'
+        };
+
+        const categoryTitles = {
+            main: 'Application Entry Point',
+            config: 'Configuration Files',
+            controller: 'REST Controllers',
+            dto: 'Data Transfer Objects',
+            entity: 'JPA Entities',
+            exception: 'Exception Handlers',
+            mapper: 'Entity-DTO Mappers',
+            repository: 'Data Repositories',
+            service: 'Business Services'
+        };
+
+        let currentFilter = 'all';
+
+        // Initialize the page
+        function init() {
+            renderFiles();
+            // Initialize syntax highlighting
+            hljs.highlightAll();
+        }
+
+        // Render all files
+        function renderFiles() {
+            const container = document.getElementById('fileContainer');
+            container.innerHTML = '';
+
+            Object.keys(fileContents).forEach(category => {
+                if (currentFilter !== 'all' && currentFilter !== category) return;
+
+                const section = document.createElement('div');
+                section.className = 'category-section';
+                section.dataset.category = category;
+
+                const header = document.createElement('div');
+                header.className = 'category-header';
+                header.onclick = () => toggleCategory(category);
+                header.innerHTML = `
+                    <div class="category-icon">${categoryIcons[category]}</div>
+                    <h2>${categoryTitles[category]}</h2>
+                    <div class="file-count">${fileContents[category].length} files</div>
+                    <span class="toggle-icon">▼</span>
+                `;
+
+                const filesGrid = document.createElement('div');
+                filesGrid.className = 'files-grid';
+                filesGrid.id = `category-${category}`;
+
+                fileContents[category].forEach(file => {
+                    const fileCard = createFileCard(file, category);
+                    filesGrid.appendChild(fileCard);
+                });
+
+                section.appendChild(header);
+                section.appendChild(filesGrid);
+                container.appendChild(section);
+            });
+
+            // Highlight all code blocks
+            setTimeout(() => {
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            }, 100);
+        }
+
+        // Create a file card
+        function createFileCard(file, category) {
+            const card = document.createElement('div');
+            card.className = 'file-card';
+            card.dataset.filename = file.name.toLowerCase();
+            card.dataset.category = category;
+            card.dataset.content = file.content.toLowerCase();
+
+            const fileId = file.name.replace('.java', '').replace(/\./g, '-') + '-' + category;
+
+            card.innerHTML = `
+                <div class="file-header" onclick="toggleCode('${fileId}')">
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-path">${file.path}</div>
+                    </div>
+                    <div class="file-actions">
+                        <button class="copy-btn" onclick="event.stopPropagation(); copyCode('${fileId}')">
+                            📋 Copy
+                        </button>
+                        <span class="expand-icon" id="icon-${fileId}">▼</span>
+                    </div>
+                </div>
+                <div class="code-container" id="code-${fileId}">
+                    <pre><code class="language-java">${file.content}</code></pre>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Toggle code visibility
+        function toggleCode(fileId) {
+            const codeContainer = document.getElementById(`code-${fileId}`);
+            const icon = document.getElementById(`icon-${fileId}`);
+
+            codeContainer.classList.toggle('expanded');
+            icon.classList.toggle('expanded');
+
+            // Highlight code if just expanded
+            if (codeContainer.classList.contains('expanded')) {
+                const codeBlock = codeContainer.querySelector('code');
+                hljs.highlightElement(codeBlock);
+            }
+        }
+
+        // Copy code to clipboard
+        function copyCode(fileId) {
+            const codeElement = document.querySelector(`#code-${fileId} code`);
+            const content = codeElement.textContent;
+
+            navigator.clipboard.writeText(content).then(() => {
+                showToast();
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
+        // Show toast notification
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // Filter by category
+        function filterCategory(category) {
+            currentFilter = category;
+
+            // Update active button
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            renderFiles();
+        }
+
+        // Toggle category visibility
+        function toggleCategory(category) {
+            const filesGrid = document.getElementById(`category-${category}`);
+            const toggleIcon = event.currentTarget.querySelector('.toggle-icon');
+
+            if (filesGrid.style.display === 'none') {
+                filesGrid.style.display = 'grid';
+                toggleIcon.classList.remove('collapsed');
+            } else {
+                filesGrid.style.display = 'none';
+                toggleIcon.classList.add('collapsed');
+            }
+        }
+
+        // Search files
+        function searchFiles() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const fileCards = document.querySelectorAll('.file-card');
+            let visibleCount = 0;
+
+            fileCards.forEach(card => {
+                const fileName = card.dataset.filename;
+                const content = card.dataset.content;
+
+                if (fileName.includes(searchTerm) || content.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/hide category sections based on visible files
+            document.querySelectorAll('.category-section').forEach(section => {
+                const visibleFiles = section.querySelectorAll('.file-card[style="display: block;"], .file-card:not([style])');
+                if (searchTerm && visibleFiles.length === 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+        }
+
+        // Initialize on page load
+        window.onload = init;
+    </script>
+</body>
+
+</html>

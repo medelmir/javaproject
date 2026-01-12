@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polytech Project - Code Documentation</title>
+    <meta name="description" content="Complete code documentation for the Polytech Capgemini project, showcasing all source files and their implementation.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-bg: #0f0f23;
+            --darker-bg: #0a0a15;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-accent: #667eea;
+            --code-bg: rgba(0, 0, 0, 0.3);
+            --hover-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, -50px); }
+        }
+
+        /* Header */
+        header {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 120px;
+            z-index: 99;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: var(--hover-bg);
+            border-color: var(--text-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn.active {
+            background: var(--primary-gradient);
+            border-color: transparent;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+            border-color: var(--text-accent);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* File Categories */
+        .category-section {
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .category-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .toggle-icon {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        /* File Cards */
+        .files-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .file-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .file-card:hover {
+            border-color: var(--text-accent);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .file-header {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .file-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+
+        .file-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .copy-btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .code-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .code-container.expanded {
+            max-height: 5000px;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1.5rem;
+            background: var(--code-bg);
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        code {
+            color: var(--text-primary);
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #c792ea; }
+        .string { color: #c3e88d; }
+        .comment { color: #676e95; font-style: italic; }
+        .function { color: #82aaff; }
+        .class-name { color: #ffcb6b; }
+        .annotation { color: #f78c6c; }
+
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--text-accent);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        #searchInput::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-gradient);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .nav-content {
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <header>
+        <div class="header-content">
+            <h1>🎓 Polytech Project Documentation</h1>
+            <p class="subtitle">Capgemini Backend - Complete Source Code Reference</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <button class="nav-btn active" onclick="filterCategory('all')">All Files</button>
+            <button class="nav-btn" onclick="filterCategory('controller')">Controllers</button>
+            <button class="nav-btn" onclick="filterCategory('service')">Services</button>
+            <button class="nav-btn" onclick="filterCategory('entity')">Entities</button>
+            <button class="nav-btn" onclick="filterCategory('dto')">DTOs</button>
+            <button class="nav-btn" onclick="filterCategory('repository')">Repositories</button>
+            <button class="nav-btn" onclick="filterCategory('mapper')">Mappers</button>
+            <button class="nav-btn" onclick="filterCategory('exception')">Exceptions</button>
+            <button class="nav-btn" onclick="filterCategory('config')">Configuration</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔍 Search files by name or content..." onkeyup="searchFiles()">
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalFiles">38</div>
+                <div class="stat-label">Total Java Files</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Controllers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Services</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Entities</div>
+            </div>
+        </div>
+
+        <div id="fileContainer">
+            <!-- Files will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <script>
+        // File structure data
+        const files = {
+            config: [
+                { name: 'CorsConfig.java', path: 'src/main/java/com/polytech/polytech/config/CorsConfig.java' },
+                { name: 'SecurityConfig.java', path: 'src/main/java/com/polytech/polytech/config/SecurityConfig.java' }
+            ],
+            controller: [
+                { name: 'BoiteController.java', path: 'src/main/java/com/polytech/polytech/controller/BoiteController.java' },
+                { name: 'CoordonneesController.java', path: 'src/main/java/com/polytech/polytech/controller/CoordonneesController.java' },
+                { name: 'ReservationController.java', path: 'src/main/java/com/polytech/polytech/controller/ReservationController.java' },
+                { name: 'UtilisateurController.java', path: 'src/main/java/com/polytech/polytech/controller/UtilisateurController.java' }
+            ],
+            dto: [
+                { name: 'BoiteRequestDto.java', path: 'src/main/java/com/polytech/polytech/dto/BoiteRequestDto.java' },
+                { name: 'BoiteResponseDto.java', path: 'src/main/java/com/polytech/polytech/dto/BoiteResponseDto.java' },
+                { name: 'CoordonneesRequestDto.java', path: 'src/main/java/com/polytech/polytech/dto/CoordonneesRequestDto.java' },
+                { name: 'CoordonneesResponseDto.java', path: 'src/main/java/com/polytech/polytech/dto/CoordonneesResponseDto.java' },
+                { name: 'ReservationRequestDto.java', path: 'src/main/java/com/polytech/polytech/dto/ReservationRequestDto.java' },
+                { name: 'ReservationResponseDto.java', path: 'src/main/java/com/polytech/polytech/dto/ReservationResponseDto.java' },
+                { name: 'UtilisateursRequestDto.java', path: 'src/main/java/com/polytech/polytech/dto/UtilisateursRequestDto.java' },
+                { name: 'UtilisateursResponseDto.java', path: 'src/main/java/com/polytech/polytech/dto/UtilisateursResponseDto.java' }
+            ],
+            entity: [
+                { name: 'Boite.java', path: 'src/main/java/com/polytech/polytech/entity/Boite.java' },
+                { name: 'Coordonnees.java', path: 'src/main/java/com/polytech/polytech/entity/Coordonnees.java' },
+                { name: 'Reservation.java', path: 'src/main/java/com/polytech/polytech/entity/Reservation.java' },
+                { name: 'ReservationId.java', path: 'src/main/java/com/polytech/polytech/entity/ReservationId.java' },
+                { name: 'Utilisateur.java', path: 'src/main/java/com/polytech/polytech/entity/Utilisateur.java' }
+            ],
+            exception: [
+                { name: 'BoiteInexistanteException.java', path: 'src/main/java/com/polytech/polytech/exception/BoiteInexistanteException.java' },
+                { name: 'CoordonneesInexistantesException.java', path: 'src/main/java/com/polytech/polytech/exception/CoordonneesInexistantesException.java' },
+                { name: 'GestionnaireException.java', path: 'src/main/java/com/polytech/polytech/exception/GestionnaireException.java' },
+                { name: 'ReservationInexistanteException.java', path: 'src/main/java/com/polytech/polytech/exception/ReservationInexistanteException.java' },
+                { name: 'UtilisateurInexistantException.java', path: 'src/main/java/com/polytech/polytech/exception/UtilisateurInexistantException.java' }
+            ],
+            mapper: [
+                { name: 'BoiteMapper.java', path: 'src/main/java/com/polytech/polytech/mapper/BoiteMapper.java' },
+                { name: 'CoordonneesMapper.java', path: 'src/main/java/com/polytech/polytech/mapper/CoordonneesMapper.java' },
+                { name: 'ReservationMapper.java', path: 'src/main/java/com/polytech/polytech/mapper/ReservationMapper.java' },
+                { name: 'Utilisateursmapper.java', path: 'src/main/java/com/polytech/polytech/mapper/Utilisateursmapper.java' }
+            ],
+            repository: [
+                { name: 'BoiteRepository.java', path: 'src/main/java/com/polytech/polytech/repository/BoiteRepository.java' },
+                { name: 'CoordonneesRepository.java', path: 'src/main/java/com/polytech/polytech/repository/CoordonneesRepository.java' },
+                { name: 'ReservationRepository.java', path: 'src/main/java/com/polytech/polytech/repository/ReservationRepository.java' },
+                { name: 'Utilisateursrepository.java', path: 'src/main/java/com/polytech/polytech/repository/Utilisateursrepository.java' }
+            ],
+            service: [
+                { name: 'BoiteService.java', path: 'src/main/java/com/polytech/polytech/service/BoiteService.java' },
+                { name: 'CoordonneesService.java', path: 'src/main/java/com/polytech/polytech/service/CoordonneesService.java' },
+                { name: 'ReservationService.java', path: 'src/main/java/com/polytech/polytech/service/ReservationService.java' },
+                { name: 'UtilisateurService.java', path: 'src/main/java/com/polytech/polytech/service/UtilisateurService.java' }
+            ],
+            main: [
+                { name: 'PolytechApplication.java', path: 'src/main/java/com/polytech/polytech/PolytechApplication.java' }
+            ]
+        };
+
+        // Category icons
+        const categoryIcons = {
+            config: '⚙️',
+            controller: '🎮',
+            dto: '📦',
+            entity: '🗃️',
+            exception: '⚠️',
+            mapper: '🔄',
+            repository: '💾',
+            service: '⚡',
+            main: '🚀'
+        };
+
+        // Category titles
+        const categoryTitles = {
+            config: 'Configuration',
+            controller: 'Controllers',
+            dto: 'Data Transfer Objects',
+            entity: 'Entities',
+            exception: 'Exceptions',
+            mapper: 'Mappers',
+            repository: 'Repositories',
+            service: 'Services',
+            main: 'Application'
+        };
+
+        let currentFilter = 'all';
+
+        // Initialize the page
+        function init() {
+            renderFiles();
+        }
+
+        // Render all files
+        function renderFiles() {
+            const container = document.getElementById('fileContainer');
+            container.innerHTML = '';
+
+            Object.keys(files).forEach(category => {
+                if (currentFilter !== 'all' && currentFilter !== category) return;
+
+                const section = document.createElement('div');
+                section.className = 'category-section';
+                section.dataset.category = category;
+
+                const header = document.createElement('div');
+                header.className = 'category-header';
+                header.onclick = () => toggleCategory(category);
+                header.innerHTML = `
+                    <div class="category-icon">${categoryIcons[category]}</div>
+                    <h2>${categoryTitles[category]}</h2>
+                    <span class="toggle-icon">▼</span>
+                `;
+
+                const filesGrid = document.createElement('div');
+                filesGrid.className = 'files-grid';
+                filesGrid.id = `category-${category}`;
+
+                files[category].forEach(file => {
+                    const fileCard = createFileCard(file, category);
+                    filesGrid.appendChild(fileCard);
+                });
+
+                section.appendChild(header);
+                section.appendChild(filesGrid);
+                container.appendChild(section);
+            });
+        }
+
+        // Create a file card
+        function createFileCard(file, category) {
+            const card = document.createElement('div');
+            card.className = 'file-card';
+            card.dataset.filename = file.name.toLowerCase();
+            card.dataset.category = category;
+
+            const fileId = file.name.replace('.java', '').replace(/\./g, '-');
+
+            card.innerHTML = `
+                <div class="file-header" onclick="toggleCode('${fileId}')">
+                    <div>
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-path">${file.path}</div>
+                    </div>
+                    <button class="copy-btn" onclick="event.stopPropagation(); copyCode('${fileId}')">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="code-container" id="code-${fileId}">
+                    <pre><code id="content-${fileId}">// Loading code...</code></pre>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Toggle code visibility
+        function toggleCode(fileId) {
+            const codeContainer = document.getElementById(`code-${fileId}`);
+            const contentElement = document.getElementById(`content-${fileId}`);
+            
+            codeContainer.classList.toggle('expanded');
+            
+            // Load code if not already loaded
+            if (contentElement.textContent === '// Loading code...') {
+                loadFileContent(fileId, contentElement);
+            }
+        }
+
+        // Load file content (placeholder - you'll need to add actual file content)
+        function loadFileContent(fileId, element) {
+            // This is a placeholder. In a real implementation, you would load the actual file content
+            element.textContent = `// File content for ${fileId}\n// This is a placeholder.\n// To display actual code, you need to embed the file contents.`;
+        }
+
+        // Copy code to clipboard
+        function copyCode(fileId) {
+            const content = document.getElementById(`content-${fileId}`).textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Code copied to clipboard!');
+            });
+        }
+
+        // Filter by category
+        function filterCategory(category) {
+            currentFilter = category;
+            
+            // Update active button
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderFiles();
+        }
+
+        // Toggle category visibility
+        function toggleCategory(category) {
+            const filesGrid = document.getElementById(`category-${category}`);
+            const toggleIcon = event.currentTarget.querySelector('.toggle-icon');
+            
+            if (filesGrid.style.display === 'none') {
+                filesGrid.style.display = 'grid';
+                toggleIcon.classList.remove('collapsed');
+            } else {
+                filesGrid.style.display = 'none';
+                toggleIcon.classList.add('collapsed');
+            }
+        }
+
+        // Search files
+        function searchFiles() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const fileCards = document.querySelectorAll('.file-card');
+            
+            fileCards.forEach(card => {
+                const fileName = card.dataset.filename;
+                if (fileName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize on page load
+        window.onload = init;
+    </script>
+</body>
+</html>

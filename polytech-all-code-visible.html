@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polytech Project - Complete Code Repository</title>
+    <meta name="description" content="Complete code repository for the Polytech Capgemini project with all source files visible.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Highlight.js for Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --dark-bg: #0f0f23;
+            --darker-bg: #0a0a15;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-accent: #667eea;
+            --code-bg: #282c34;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, -50px); }
+        }
+
+        /* Header */
+        header {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+            border-color: var(--text-accent);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Category Section */
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .category-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .file-count {
+            margin-left: auto;
+            padding: 0.5rem 1rem;
+            background: var(--success-gradient);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* File Card */
+        .file-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .file-card:hover {
+            border-color: var(--text-accent);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .file-header {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .file-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .copy-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        pre {
+            margin: 0;
+            padding: 0;
+            background: var(--code-bg);
+            overflow-x: auto;
+        }
+
+        pre code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: block;
+            padding: 1.5rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--success-gradient);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            font-weight: 500;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-gradient);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .file-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+
+    <header>
+        <div class="header-content">
+            <h1>🎓 Polytech Project - Complete Code Repository</h1>
+            <p class="subtitle">Capgemini Backend | Spring Boot Application | All 37 Source Files Visible</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">37</div>
+                <div class="stat-label">Total Java Files</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">REST Controllers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Business Services</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">JPA Entities</div>
+            </div>
+        </div>
+
+
+        <!-- APPLICATION ENTRY POINT -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">🚀</div>
+                <h2>Application Entry Point</h2>
+                <div class="file-count">1 files</div>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">PolytechApplication.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/PolytechApplication.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('main-1')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-main-1">package com.polytech.polytech;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class PolytechApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PolytechApplication.class, args);
+	}
+
+}
+</code></pre>
+            </div>
+
+        </div>
+
+        <!-- CONFIGURATION FILES -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">⚙️</div>
+                <h2>Configuration Files</h2>
+                <div class="file-count">2 files</div>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">CorsConfig.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/config/CorsConfig.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('config-1')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-config-1">package com.polytech.polytech.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+
+
+        config.setAllowCredentials(true);
+
+
+        config.addAllowedOrigin(&quot;http://localhost:4200&quot;);
+
+
+        config.addAllowedHeader(&quot;*&quot;);
+
+
+        config.addAllowedMethod(&quot;*&quot;);
+
+
+        source.registerCorsConfiguration(&quot;/**&quot;, config);
+
+        return new CorsFilter(source);
+    }
+}</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">SecurityConfig.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/config/SecurityConfig.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('config-2')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-config-2">package com.polytech.polytech.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -&gt; csrf.disable()) // désactive CSRF pour les tests avec Postman
+                .authorizeHttpRequests(auth -&gt; auth
+                        .anyRequest().permitAll() // autorise toutes les requêtes
+                );
+        return http.build();
+    }
+}
+</code></pre>
+            </div>
+
+        </div>
+
+        <!-- REST CONTROLLERS -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">🎮</div>
+                <h2>REST Controllers</h2>
+                <div class="file-count">4 files</div>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">BoiteController.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/controller/BoiteController.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('controller-1')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-controller-1">package com.polytech.polytech.controller;
+
+import com.polytech.polytech.dto.BoiteRequestDto;
+import com.polytech.polytech.dto.BoiteResponseDto;
+import com.polytech.polytech.service.BoiteService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/boites&quot;)
+public class BoiteController {
+
+    private final BoiteService boiteService;
+
+    @Autowired
+    public BoiteController(BoiteService boiteService) {
+        this.boiteService = boiteService;
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;BoiteResponseDto&gt;&gt; getAllBoites() {
+        List&lt;BoiteResponseDto&gt; boites = boiteService.getAllBoites();
+        return ResponseEntity.ok(boites);
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;BoiteResponseDto&gt; getBoiteById(@PathVariable Long id) {
+        BoiteResponseDto boite = boiteService.getBoiteParId(id);
+        return ResponseEntity.ok(boite);
+    }
+
+    @PostMapping
+    public ResponseEntity&lt;BoiteResponseDto&gt; createBoite(@RequestBody BoiteRequestDto boiteRequestDto) {
+        BoiteResponseDto savedBoite = boiteService.createBoite(boiteRequestDto);
+        return ResponseEntity.ok(savedBoite);
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;BoiteResponseDto&gt; updateBoite(@PathVariable Long id,
+                                                        @Valid @RequestBody BoiteRequestDto boiteRequestDto) {
+        BoiteResponseDto updatedBoite = boiteService.updateBoite(id, boiteRequestDto);
+        return ResponseEntity.ok(updatedBoite);
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteBoite(@PathVariable Long id) {
+        boiteService.deleteBoite(id);
+        return ResponseEntity.noContent().build();
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">CoordonneesController.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/controller/CoordonneesController.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('controller-2')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-controller-2">package com.polytech.polytech.controller;
+
+import com.polytech.polytech.dto.CoordonneesRequestDto;
+import com.polytech.polytech.dto.CoordonneesResponseDto;
+import com.polytech.polytech.service.CoordonneesService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/coordonnees&quot;)
+public class CoordonneesController {
+
+    private final CoordonneesService coordonneesService;
+
+    @Autowired
+    public CoordonneesController(CoordonneesService coordonneesService) {
+        this.coordonneesService = coordonneesService;
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;CoordonneesResponseDto&gt;&gt; getAllCoordonnees() {
+        List&lt;CoordonneesResponseDto&gt; coordonnees = coordonneesService.getAllCoordonnees();
+        return ResponseEntity.ok(coordonnees);
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;CoordonneesResponseDto&gt; getCoordonneesById(@PathVariable Long id) {
+        CoordonneesResponseDto coord = coordonneesService.getCoordonneesParId(id);
+        return ResponseEntity.ok(coord);
+    }
+
+    @PostMapping
+    public ResponseEntity&lt;CoordonneesResponseDto&gt; createCoordonnees(
+            @Valid @RequestBody CoordonneesRequestDto requestDto) {
+        CoordonneesResponseDto savedCoord = coordonneesService.createCoordonnees(requestDto);
+        return ResponseEntity.ok(savedCoord);
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;CoordonneesResponseDto&gt; updateCoordonnees(
+            @PathVariable Long id,
+            @Valid @RequestBody CoordonneesRequestDto requestDto) {
+        CoordonneesResponseDto updatedCoord = coordonneesService.updateCoordonnees(id, requestDto);
+        return ResponseEntity.ok(updatedCoord);
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteCoordonnees(@PathVariable Long id) {
+        coordonneesService.deleteCoordonnees(id);
+        return ResponseEntity.noContent().build();
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">ReservationController.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/controller/ReservationController.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('controller-3')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-controller-3">package com.polytech.polytech.controller;
+
+
+import com.polytech.polytech.dto.ReservationRequestDto;
+import com.polytech.polytech.dto.ReservationResponseDto;
+import com.polytech.polytech.service.ReservationService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/reservations&quot;)
+public class ReservationController {
+    private final ReservationService reservationService;
+
+    public ReservationController(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
+
+    @GetMapping
+    public List&lt;ReservationResponseDto&gt; getAllReservations() {
+        return reservationService.getallReservations();
+    }
+
+    @PostMapping
+    public ReservationResponseDto createReservation(@RequestBody ReservationRequestDto dto) {
+        return reservationService.createReservation(dto);
+    }
+
+    @PutMapping(&quot;/{utilisateurId}/{boiteId}&quot;)
+    public ReservationResponseDto updateReservation(
+            @PathVariable Long utilisateurId,
+            @PathVariable Long boiteId,
+            @RequestBody ReservationRequestDto dto) {
+        return reservationService.updateReservation(utilisateurId, boiteId, dto);
+    }
+
+    @DeleteMapping(&quot;/{utilisateurId}/{boiteId}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteReservation(
+            @PathVariable Long utilisateurId,
+            @PathVariable Long boiteId) {
+        reservationService.deleteReservation(utilisateurId, boiteId);
+        return ResponseEntity.noContent().build();
+    }
+
+}
+
+
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">UtilisateurController.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/controller/UtilisateurController.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('controller-4')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-controller-4">package com.polytech.polytech.controller;
+
+import com.polytech.polytech.dto.UtilisateursRequestDto;
+import com.polytech.polytech.dto.UtilisateursResponseDto;
+import com.polytech.polytech.entity.Utilisateur;
+import com.polytech.polytech.mapper.Utilisateursmapper;
+import com.polytech.polytech.service.UtilisateurService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/utilisateurs&quot;)
+public class UtilisateurController {
+    public UtilisateurService utilisateurService;
+    @Autowired
+    public UtilisateurController(UtilisateurService utilisateurServic) {
+        this.utilisateurService = utilisateurServic;
+    }
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;UtilisateursResponseDto&gt; getutilisateur(@PathVariable Long id){
+
+        UtilisateursResponseDto myuser= utilisateurService.getutilisateurparId(id);
+        return ResponseEntity.ok(myuser);
+    }
+    @GetMapping
+    public ResponseEntity&lt;List&lt;UtilisateursResponseDto&gt;&gt; getutilisateurs(){
+        List&lt;UtilisateursResponseDto&gt; utilisateurs =  utilisateurService.getallutilisateurs();
+        return ResponseEntity.ok(utilisateurs);
+    }
+    @PostMapping
+    public ResponseEntity&lt;UtilisateursResponseDto&gt; createutilisateur(@Valid @RequestBody UtilisateursRequestDto utilisateursRequestDto){
+
+        UtilisateursResponseDto user = utilisateurService.createuser(utilisateursRequestDto);
+        return ResponseEntity.ok(user);
+    }
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;UtilisateursResponseDto&gt; modifierutilisateur(@PathVariable Long id , @Valid @RequestBody UtilisateursRequestDto requestDto){
+        UtilisateursResponseDto user = utilisateurService.updateuser(id, requestDto);
+        return ResponseEntity.ok(user);
+    }
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteUtilisateur(@PathVariable Long id) {
+        utilisateurService.deleteUtilisateur(id);
+        return ResponseEntity.noContent().build();
+    }
+
+}
+
+</code></pre>
+            </div>
+
+        </div>
+
+        <!-- BUSINESS SERVICES -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">⚡</div>
+                <h2>Business Services</h2>
+                <div class="file-count">4 files</div>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">BoiteService.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/service/BoiteService.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('service-1')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-service-1">package com.polytech.polytech.service;
+
+import com.polytech.polytech.dto.BoiteRequestDto;
+import com.polytech.polytech.dto.BoiteResponseDto;
+import com.polytech.polytech.entity.Boite;
+import com.polytech.polytech.mapper.BoiteMapper;
+import com.polytech.polytech.repository.BoiteRepository;
+import com.polytech.polytech.exception.BoiteInexistanteException;
+import jakarta.validation.Valid;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.polytech.polytech.entity.Coordonnees;
+
+import com.polytech.polytech.exception.CoordonneesInexistantesException;
+import com.polytech.polytech.repository.CoordonneesRepository;
+
+@Service
+public class BoiteService {
+    private final CoordonneesRepository coordonneesRepo;
+    private final BoiteRepository boiteRepo;
+
+    public BoiteService(BoiteRepository boiteRepo, CoordonneesRepository coordonneesRepo) {
+        this.coordonneesRepo = coordonneesRepo;
+        this.boiteRepo = boiteRepo;
+    }
+
+    public BoiteResponseDto createBoite(BoiteRequestDto boiteRequestDto) {
+        // First, create and save the Coordonnees
+        Coordonnees coordonnees = new Coordonnees();
+        coordonnees.setLatitude(boiteRequestDto.getLatitude());
+        coordonnees.setLongitude(boiteRequestDto.getLongitude());
+        Coordonnees savedCoordonnees = coordonneesRepo.save(coordonnees);
+
+        // Then create the Boite with the saved Coordonnees
+        Boite boite = BoiteMapper.toEntity(boiteRequestDto);
+        boite.setCoordonnees(savedCoordonnees);
+
+        Boite savedBoite = boiteRepo.save(boite);
+        return BoiteMapper.toDTO(savedBoite);
+    }
+
+    public void deleteBoite(Long id) {
+        Boite boite = boiteRepo.findById(id)
+                .orElseThrow(() -&gt; new BoiteInexistanteException(&quot;Boite inexistante : &quot; + id));
+        boiteRepo.delete(boite);
+    }
+
+    public List&lt;BoiteResponseDto&gt; getAllBoites() {
+        List&lt;Boite&gt; boites = boiteRepo.findAll();
+        return boites.stream()
+                .map(BoiteMapper::toDTO)
+                .collect(Collectors.toList());
+
+    }
+
+    public BoiteResponseDto getBoiteParId(Long id) {
+        Boite boite = boiteRepo.findById(id)
+                .orElseThrow(() -&gt; new BoiteInexistanteException(&quot;Boite inexistante : &quot; + id));
+        return BoiteMapper.toDTO(boite);
+    }
+
+    public BoiteResponseDto updateBoite(Long id, @Valid BoiteRequestDto boiteRequestDto) {
+        Boite boite = boiteRepo.findById(id)
+                .orElseThrow(() -&gt; new BoiteInexistanteException(&quot;Boite inexistante : &quot; + id));
+
+        Coordonnees coordonnees = coordonneesRepo.findById(boite.getCoordonnees().getIdentifiant())
+                .orElseThrow(() -&gt; new CoordonneesInexistantesException(&quot;Coordonnees inexistantes : &quot;
+                        + boite.getCoordonnees().getIdentifiant()));
+
+        boite.setNom(boiteRequestDto.getNom());
+        boite.setQuantite(boiteRequestDto.getQuantite());
+        boite.setDescription(boiteRequestDto.getDescription());
+
+        coordonnees.setLatitude(boiteRequestDto.getLatitude());
+        coordonnees.setLongitude(boiteRequestDto.getLongitude());
+
+        Boite updatedBoite = boiteRepo.save(boite);
+        return BoiteMapper.toDTO(updatedBoite);
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">CoordonneesService.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/service/CoordonneesService.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('service-2')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-service-2">package com.polytech.polytech.service;
+
+import com.polytech.polytech.dto.CoordonneesRequestDto;
+import com.polytech.polytech.dto.CoordonneesResponseDto;
+import com.polytech.polytech.entity.Boite;
+import com.polytech.polytech.entity.Coordonnees;
+import com.polytech.polytech.exception.BoiteInexistanteException;
+import com.polytech.polytech.exception.CoordonneesInexistantesException;
+import com.polytech.polytech.mapper.CoordonneesMapper;
+import com.polytech.polytech.repository.BoiteRepository;
+import com.polytech.polytech.repository.CoordonneesRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class CoordonneesService {
+
+    private final CoordonneesRepository coordonneesRepo;
+    private final BoiteRepository boiteRepo;
+
+    public CoordonneesService(CoordonneesRepository coordonneesRepo, BoiteRepository boiteRepo) {
+        this.coordonneesRepo = coordonneesRepo;
+        this.boiteRepo = boiteRepo;
+    }
+
+    public CoordonneesResponseDto getCoordonneesParId(Long id) {
+        Coordonnees coord = coordonneesRepo.findById(id)
+                .orElseThrow(() -&gt; new CoordonneesInexistantesException(&quot;Coordonnées inexistantes : &quot; + id));
+        return CoordonneesMapper.toDTO(coord);
+    }
+
+    public List&lt;CoordonneesResponseDto&gt; getAllCoordonnees() {
+        return coordonneesRepo.findAll()
+                .stream()
+                .map(CoordonneesMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public CoordonneesResponseDto createCoordonnees(CoordonneesRequestDto requestDto) {
+        Boite boite = boiteRepo.findById(requestDto.getBoiteId())
+                .orElseThrow(() -&gt; new BoiteInexistanteException(&quot;Boite inexistante : &quot; + requestDto.getBoiteId()));
+
+        Coordonnees coord = CoordonneesMapper.toEntity(requestDto);
+        if (coord.getBoites() == null) {
+            coord.setBoites(new ArrayList&lt;&gt;());
+        }
+
+        coord.getBoites().add(boite);
+
+        boite.setCoordonnees(coord);
+
+        Coordonnees saved = coordonneesRepo.save(coord);
+        return CoordonneesMapper.toDTO(saved);
+    }
+
+    public CoordonneesResponseDto updateCoordonnees(Long id, CoordonneesRequestDto requestDto) {
+        Coordonnees coord = coordonneesRepo.findById(id)
+                .orElseThrow(() -&gt; new CoordonneesInexistantesException(&quot;Coordonnées inexistantes : &quot; + id));
+
+        Boite boite = boiteRepo.findById(requestDto.getBoiteId())
+                .orElseThrow(() -&gt; new BoiteInexistanteException(&quot;Boite inexistante : &quot; + requestDto.getBoiteId()));
+
+        coord.setLatitude(requestDto.getLatitude());
+        coord.setLongitude(requestDto.getLongitude());
+        if (coord.getBoites() == null) {
+            coord.setBoites(new ArrayList&lt;&gt;());
+        }
+
+        coord.getBoites().add(boite);
+
+        boite.setCoordonnees(coord);
+
+        Coordonnees updated = coordonneesRepo.save(coord);
+        return CoordonneesMapper.toDTO(updated);
+    }
+
+    public void deleteCoordonnees(Long id) {
+        Coordonnees coord = coordonneesRepo.findById(id)
+                .orElseThrow(() -&gt; new CoordonneesInexistantesException(&quot;Coordonnées inexistantes : &quot; + id));
+        coordonneesRepo.delete(coord);
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">ReservationService.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/service/ReservationService.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('service-3')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-service-3">package com.polytech.polytech.service;
+
+import com.polytech.polytech.dto.ReservationRequestDto;
+import com.polytech.polytech.dto.ReservationResponseDto;
+import com.polytech.polytech.entity.Boite;
+import com.polytech.polytech.entity.Reservation;
+import com.polytech.polytech.entity.ReservationId;
+import com.polytech.polytech.entity.Utilisateur;
+import com.polytech.polytech.exception.BoiteInexistanteException;
+import com.polytech.polytech.exception.ReservationInexistanteException;
+import com.polytech.polytech.exception.UtilisateurInexistantException;
+import com.polytech.polytech.mapper.ReservationMapper;
+import com.polytech.polytech.repository.BoiteRepository;
+import com.polytech.polytech.repository.ReservationRepository;
+import com.polytech.polytech.repository.Utilisateursrepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class ReservationService {
+
+    public ReservationRepository reservationRepository;
+    public Utilisateursrepository utilisateursrepository;
+    public BoiteRepository boiteRepository;
+
+    public ReservationService(ReservationRepository repo1, Utilisateursrepository repo2, BoiteRepository repo3) {
+        this.reservationRepository = repo1;
+        this.utilisateursrepository = repo2;
+        this.boiteRepository = repo3;
+    }
+
+    public List&lt;ReservationResponseDto&gt; getallReservations() {
+        List&lt;Reservation&gt; reservations = reservationRepository.findAll();
+        List&lt;ReservationResponseDto&gt; response = reservations.stream().map(ReservationMapper::toDTO)
+                .collect(Collectors.toList());
+        return response;
+    }
+
+    public ReservationResponseDto createReservation(ReservationRequestDto reservationRequestDto) {
+        Utilisateur utilisateur = utilisateursrepository.findById(reservationRequestDto.getUtilisateurId())
+                .orElseThrow(() -&gt; new UtilisateurInexistantException(&quot;Utilisateur inexistant&quot;));
+        Boite boite = boiteRepository.findById(reservationRequestDto.getBoiteId())
+                .orElseThrow(() -&gt; new BoiteInexistanteException(&quot;Boite inexistante&quot;));
+        Reservation notre_reservation = ReservationMapper.toEntity(reservationRequestDto, utilisateur, boite);
+        reservationRepository.save(notre_reservation);
+        return ReservationMapper.toDTO(notre_reservation);
+    }
+
+    public ReservationResponseDto updateReservation(Long utilisateurId, Long boiteId,
+                                                    ReservationRequestDto reservationRequestDto) {
+
+        ReservationId reservationId = new ReservationId(utilisateurId, boiteId);
+
+
+        Reservation existingReservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -&gt; new ReservationInexistanteException(&quot;Reservation inexistante&quot;));
+
+
+        if (reservationRequestDto.getReservation() != null) {
+            existingReservation.setReservation(reservationRequestDto.getReservation());
+        }
+
+
+        reservationRepository.save(existingReservation);
+        return ReservationMapper.toDTO(existingReservation);
+    }
+
+    public void deleteReservation(Long utilisateurId, Long boiteId) {
+
+        ReservationId reservationId = new ReservationId(utilisateurId, boiteId);
+
+
+        if (!reservationRepository.existsById(reservationId)) {
+            throw new ReservationInexistanteException(&quot;Reservation inexistante&quot;);
+        }
+
+
+        reservationRepository.deleteById(reservationId);
+    }
+
+}
+
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">UtilisateurService.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/service/UtilisateurService.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('service-4')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-service-4">package com.polytech.polytech.service;
+
+import com.polytech.polytech.dto.UtilisateursRequestDto;
+import com.polytech.polytech.dto.UtilisateursResponseDto;
+import com.polytech.polytech.entity.Boite;
+import com.polytech.polytech.entity.Utilisateur;
+import com.polytech.polytech.exception.BoiteInexistanteException;
+import com.polytech.polytech.exception.UtilisateurInexistantException;
+import com.polytech.polytech.mapper.Utilisateursmapper;
+import com.polytech.polytech.repository.Utilisateursrepository;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class UtilisateurService {
+    public Utilisateursrepository repo;
+
+    public UtilisateurService(Utilisateursrepository repo) {
+        this.repo = repo;
+    }
+
+    public UtilisateursResponseDto getutilisateurparId(Long id) {
+        if (!repo.existsById(id)) {
+            throw new UtilisateurInexistantException(&quot;Utilisateur inexistant dans le system&quot; + id);
+        }
+        Utilisateur user = repo.findById(id).get();
+        UtilisateursResponseDto myuser = Utilisateursmapper.toDTO(user);
+        return myuser;
+    }
+
+    public List&lt;UtilisateursResponseDto&gt; getallutilisateurs() {
+        List&lt;Utilisateur&gt; utilisateurs = repo.findAll();
+        List&lt;UtilisateursResponseDto&gt; utilisateursResponseDtos = utilisateurs.stream().map(Utilisateursmapper::toDTO)
+                .collect(Collectors.toList());
+        return utilisateursResponseDtos;
+    }
+
+    public UtilisateursResponseDto createuser(UtilisateursRequestDto utilisateursRequestDto) {
+        Utilisateur user = Utilisateursmapper.toEntity(utilisateursRequestDto);
+        Utilisateur utilisateur = repo.save(user);
+        return Utilisateursmapper.toDTO(utilisateur);
+    }
+
+    public UtilisateursResponseDto updateuser(Long id, UtilisateursRequestDto utilisateursRequestDto) {
+
+        Utilisateur user = repo.findById(id)
+                .orElseThrow(() -&gt; new UtilisateurInexistantException(&quot;Utilisateur inexistant&quot;));
+        user.setNom(utilisateursRequestDto.getNom());
+        user.setPrenom(utilisateursRequestDto.getPrenom());
+        user.setMail(utilisateursRequestDto.getMail());
+        user.setUsername(utilisateursRequestDto.getUsername());
+        user.setPassword(utilisateursRequestDto.getPassword());
+
+        return Utilisateursmapper.toDTO(repo.save(user));
+
+    }
+
+    public void deleteUtilisateur(Long id) {
+        Utilisateur user = repo.findById(id)
+                .orElseThrow(() -&gt; new UtilisateurInexistantException(&quot;Utilisateur inexistante : &quot; + id));
+        repo.delete(user);
+    }
+}
+</code></pre>
+            </div>
+
+        </div>
+
+        <!-- JPA ENTITIES -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">🗃️</div>
+                <h2>JPA Entities</h2>
+                <div class="file-count">5 files</div>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">Boite.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/entity/Boite.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('entity-1')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-entity-1">package com.polytech.polytech.entity;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = &quot;boite&quot;)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Boite {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id&quot;)
+    private Long identifiant;
+
+    @Column(nullable = false)
+    private Integer quantite;
+    @Column(name = &quot;description&quot;)
+    private String description;
+    @Column(nullable = false)
+    private String nom;
+
+
+    @ManyToOne
+    @JoinColumn(name = &quot;coordonnees_id&quot;, nullable = false)
+    @JsonManagedReference
+    private Coordonnees coordonnees;
+
+
+    public Long getId() {
+        return identifiant;
+    }
+}</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">Coordonnees.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/entity/Coordonnees.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('entity-2')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-entity-2">package com.polytech.polytech.entity;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Entity
+@Table(name = &quot;coordonnees&quot;)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Coordonnees {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id&quot;)
+    private Long id;
+
+    @Column(nullable = false, length = 100)
+    private String latitude;
+
+    @Column(nullable = false, length = 100)
+    private String longitude;
+
+    @OneToMany(mappedBy = &quot;coordonnees&quot;)
+    @JsonBackReference
+    private List&lt;Boite&gt; boites;
+
+
+
+    public Long getIdentifiant() {
+        return id;
+    }
+
+
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">Reservation.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/entity/Reservation.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('entity-3')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-entity-3">package com.polytech.polytech.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Table(name = &quot;reservation&quot;)
+@Data
+public class Reservation {
+
+    @EmbeddedId
+    private ReservationId id;
+
+    @ManyToOne
+    @MapsId(&quot;utilisateurId&quot;)
+    @JoinColumn(name = &quot;utilisateur_id&quot;, nullable = false)
+    private Utilisateur utilisateur;
+
+    @ManyToOne
+    @MapsId(&quot;boiteId&quot;)
+    @JoinColumn(name = &quot;boite_id&quot;, nullable = false)
+    private Boite boite;
+
+    @Column(nullable = false)
+    private Integer reservation;
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">ReservationId.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/entity/ReservationId.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('entity-4')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-entity-4">package com.polytech.polytech.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.io.Serializable;
+
+@Embeddable
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReservationId implements Serializable {
+
+    @Column(name = &quot;utilisateur_id&quot;, nullable = false)
+    private Long utilisateurId;
+
+    @Column(name = &quot;boite_id&quot;, nullable = false)
+    private Long boiteId;
+
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">Utilisateur.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/entity/Utilisateur.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('entity-5')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-entity-5">package com.polytech.polytech.entity;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = &quot;utilisateur&quot;)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Utilisateur {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String nom;
+
+    @Column(nullable = false)
+    private String prenom;
+
+    @Column(nullable = false, unique = true)
+    private String mail;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+
+
+
+    @OneToMany(mappedBy = &quot;utilisateur&quot;, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List&lt;Reservation&gt; reservations;
+
+
+    public void setemail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getEmail() {
+        return mail;
+    }
+}
+
+</code></pre>
+            </div>
+
+        </div>
+
+        <!-- DATA TRANSFER OBJECTS -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">📦</div>
+                <h2>Data Transfer Objects</h2>
+                <div class="file-count">8 files</div>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">BoiteRequestDto.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/dto/BoiteRequestDto.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('dto-1')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-dto-1">package com.polytech.polytech.dto;
+
+public class BoiteRequestDto {
+
+    private String nom;
+    private Integer quantite;
+    private String description;
+
+    private String latitude;
+    private String longitude;
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Integer getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">BoiteResponseDto.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/dto/BoiteResponseDto.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('dto-2')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-dto-2">package com.polytech.polytech.dto;
+
+import com.polytech.polytech.entity.Coordonnees;
+
+import lombok.Data;
+
+@Data
+
+public class BoiteResponseDto {
+    // Getters and setters
+    private Long identifiant;
+    private String nom;
+    private Integer quantite;
+    private String description;
+    private String latitude;
+    private String longitude;
+
+}
+
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">CoordonneesRequestDto.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/dto/CoordonneesRequestDto.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('dto-3')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-dto-3">package com.polytech.polytech.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CoordonneesRequestDto {
+    private String latitude;
+    private String longitude;
+
+    private Long boiteId;
+
+
+    public Long getBoiteId() {
+        return boiteId;
+    }
+
+    public void setBoiteId(Long boiteId) {
+        this.boiteId = boiteId;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">CoordonneesResponseDto.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/dto/CoordonneesResponseDto.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('dto-4')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-dto-4">package com.polytech.polytech.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CoordonneesResponseDto {
+    private Long id;
+    private String latitude;
+    private String longitude;
+    private List&lt;Long&gt; boiteId;
+
+
+    public void setBoiteId(List&lt;Long&gt; boiteId) {
+        this.boiteId = boiteId;
+    }
+
+
+    public List&lt;Long&gt; getBoiteId() {
+        return boiteId;
+    }
+
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">ReservationRequestDto.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/dto/ReservationRequestDto.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('dto-5')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-dto-5">package com.polytech.polytech.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReservationRequestDto {
+    private Long utilisateurId;
+    private Long boiteId;
+    private Integer reservation;
+
+    public Long getBoiteId() {
+        return boiteId;
+    }
+
+    public void setBoiteId(Long boiteId) {
+        this.boiteId = boiteId;
+    }
+
+    public Long getUtilisateurId() {
+        return utilisateurId;
+    }
+
+    public void setUtilisateurId(Long utilisateurId) {
+        this.utilisateurId = utilisateurId;
+    }
+
+    public Integer getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Integer reservation) {
+        this.reservation = reservation;
+    }
+}
+
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">ReservationResponseDto.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/dto/ReservationResponseDto.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('dto-6')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-dto-6">package com.polytech.polytech.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReservationResponseDto {
+    private Long utilisateurId;
+    private Long boiteId;
+    private Integer reservation;
+
+    public Long getUtilisateurId() {
+        return utilisateurId;
+    }
+
+    public void setUtilisateurId(Long utilisateurId) {
+        this.utilisateurId = utilisateurId;
+    }
+
+    public Long getBoiteId() {
+        return boiteId;
+    }
+
+    public void setBoiteId(Long boiteId) {
+        this.boiteId = boiteId;
+    }
+
+    public Integer getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Integer reservation) {
+        this.reservation = reservation;
+    }
+
+
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">UtilisateursRequestDto.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/dto/UtilisateursRequestDto.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('dto-7')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-dto-7">package com.polytech.polytech.dto;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public class UtilisateursRequestDto {
+    private String nom;
+    private String prenom;
+    @NotBlank(message = &quot;you should fill this&quot;)
+    @Email(message = &quot;mail required&quot;)
+    private String mail;
+    private String username;
+    private String password;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">UtilisateursResponseDto.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/dto/UtilisateursResponseDto.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('dto-8')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-dto-8">package com.polytech.polytech.dto;
+
+
+import lombok.Data;
+
+@Data
+public class UtilisateursResponseDto {
+
+    private Long id;
+    private String nom;
+    private String prenom;
+    private String mail;
+    private String username;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+}
+</code></pre>
+            </div>
+
+        </div>
+
+        <!-- DATA REPOSITORIES -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">💾</div>
+                <h2>Data Repositories</h2>
+                <div class="file-count">4 files</div>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">BoiteRepository.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/repository/BoiteRepository.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('repository-1')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-repository-1">package com.polytech.polytech.repository;
+
+import com.polytech.polytech.entity.Boite;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface BoiteRepository extends JpaRepository&lt;Boite,Long&gt; {
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">CoordonneesRepository.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/repository/CoordonneesRepository.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('repository-2')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-repository-2">package com.polytech.polytech.repository;
+
+import com.polytech.polytech.entity.Coordonnees;
+import com.polytech.polytech.entity.Utilisateur;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.Optional;
+@Repository
+public interface CoordonneesRepository extends JpaRepository&lt;Coordonnees, Long&gt; {
+    Optional&lt;Coordonnees&gt; findByBoites_Id(Long boiteId);
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">ReservationRepository.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/repository/ReservationRepository.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('repository-3')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-repository-3">package com.polytech.polytech.repository;
+
+import com.polytech.polytech.entity.Reservation;
+import com.polytech.polytech.entity.ReservationId;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ReservationRepository extends JpaRepository&lt;Reservation, ReservationId&gt; {
+
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">Utilisateursrepository.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/repository/Utilisateursrepository.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('repository-4')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-repository-4">package com.polytech.polytech.repository;
+
+import com.polytech.polytech.entity.Utilisateur;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface Utilisateursrepository extends JpaRepository&lt;Utilisateur, Long&gt; {
+    boolean existsById(Long id);
+}</code></pre>
+            </div>
+
+        </div>
+
+        <!-- ENTITY-DTO MAPPERS -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">🔄</div>
+                <h2>Entity-DTO Mappers</h2>
+                <div class="file-count">4 files</div>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">BoiteMapper.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/mapper/BoiteMapper.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('mapper-1')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-mapper-1">package com.polytech.polytech.mapper;
+
+import com.polytech.polytech.dto.BoiteRequestDto;
+import com.polytech.polytech.dto.BoiteResponseDto;
+import com.polytech.polytech.entity.Boite;
+import org.springframework.stereotype.Component;
+
+
+import com.polytech.polytech.dto.BoiteRequestDto;
+import com.polytech.polytech.dto.BoiteResponseDto;
+import com.polytech.polytech.entity.Boite;
+
+public class BoiteMapper {
+
+    public static Boite toEntity(BoiteRequestDto dto) {
+        Boite boite = new Boite();
+        boite.setNom(dto.getNom());
+        boite.setQuantite(dto.getQuantite());
+        boite.setDescription(dto.getDescription());
+        return boite;
+    }
+
+    public static BoiteResponseDto toDTO(Boite boite) {
+        BoiteResponseDto dto = new BoiteResponseDto();
+        dto.setIdentifiant(boite.getIdentifiant());
+        dto.setNom(boite.getNom());
+        dto.setQuantite(boite.getQuantite());
+        dto.setDescription(boite.getDescription());
+
+        if (boite.getCoordonnees() != null) {
+            dto.setLatitude(boite.getCoordonnees().getLatitude());
+            dto.setLongitude(boite.getCoordonnees().getLongitude());
+        }
+
+        return dto;
+    }
+}</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">CoordonneesMapper.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/mapper/CoordonneesMapper.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('mapper-2')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-mapper-2">package com.polytech.polytech.mapper;
+
+import com.polytech.polytech.dto.CoordonneesRequestDto;
+import com.polytech.polytech.dto.CoordonneesResponseDto;
+import com.polytech.polytech.entity.Boite;
+import com.polytech.polytech.entity.Coordonnees;
+
+import java.util.stream.Collectors;
+
+public class CoordonneesMapper {
+
+    public static Coordonnees toEntity(CoordonneesRequestDto dto) {
+        Coordonnees coord = new Coordonnees();
+        coord.setLatitude(dto.getLatitude());
+        coord.setLongitude(dto.getLongitude());
+        return coord;
+    }
+
+    public static CoordonneesResponseDto toDTO(Coordonnees coord) {
+        return new CoordonneesResponseDto(
+                coord.getId(),
+                coord.getLatitude(),
+                coord.getLongitude(),
+                coord.getBoites() != null
+                        ? coord.getBoites().stream()
+                        .map(Boite::getId)
+                        .collect(Collectors.toList())
+                        : null
+        );
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">ReservationMapper.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/mapper/ReservationMapper.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('mapper-3')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-mapper-3">package com.polytech.polytech.mapper;
+
+import com.polytech.polytech.dto.ReservationRequestDto;
+import com.polytech.polytech.dto.ReservationResponseDto;
+import com.polytech.polytech.entity.Boite;
+import com.polytech.polytech.entity.Reservation;
+import com.polytech.polytech.entity.ReservationId;
+import com.polytech.polytech.entity.Utilisateur;
+
+public class ReservationMapper {
+    public static Reservation toEntity(ReservationRequestDto dto, Utilisateur utilisateur, Boite boite) {
+        Reservation reservation = new Reservation();
+        reservation.setId(new ReservationId(dto.getUtilisateurId(), dto.getBoiteId()));
+        reservation.setUtilisateur(utilisateur);
+        reservation.setBoite(boite);
+        reservation.setReservation(dto.getReservation() != null ? dto.getReservation() : 1);
+        return reservation;
+    }
+
+    public static ReservationResponseDto toDTO(Reservation reservation) {
+        ReservationResponseDto dto = new ReservationResponseDto();
+        dto.setUtilisateurId(reservation.getUtilisateur().getId());
+        dto.setBoiteId(reservation.getBoite().getId());
+        dto.setReservation(reservation.getReservation());
+        return dto;
+    }
+
+}
+
+
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">Utilisateursmapper.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/mapper/Utilisateursmapper.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('mapper-4')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-mapper-4">package com.polytech.polytech.mapper;
+
+import com.polytech.polytech.dto.UtilisateursRequestDto;
+import com.polytech.polytech.dto.UtilisateursResponseDto;
+import com.polytech.polytech.entity.Utilisateur;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Utilisateursmapper {
+
+    // Entite -&gt; DTO
+    public static UtilisateursResponseDto toDTO(Utilisateur entite) {
+        UtilisateursResponseDto dto = new UtilisateursResponseDto();
+        dto.setId(entite.getId());
+        dto.setNom(entite.getNom());
+        dto.setPrenom(entite.getPrenom());
+        dto.setMail(entite.getEmail());
+        dto.setUsername(entite.getUsername());
+
+        return dto;
+    }
+
+    // DTO -&gt; Entite
+    public static Utilisateur toEntity(UtilisateursRequestDto dto) {
+
+
+        Utilisateur entite = new Utilisateur();
+        entite.setNom(dto.getNom());
+        entite.setPrenom(dto.getPrenom());
+        entite.setemail(dto.getMail());
+        entite.setUsername(dto.getUsername());
+        entite.setPassword(dto.getPassword());
+
+        return entite;
+    }
+}
+</code></pre>
+            </div>
+
+        </div>
+
+        <!-- EXCEPTION HANDLERS -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-icon">⚠️</div>
+                <h2>Exception Handlers</h2>
+                <div class="file-count">5 files</div>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">BoiteInexistanteException.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/exception/BoiteInexistanteException.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('exception-1')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-exception-1">package com.polytech.polytech.exception;
+
+public class BoiteInexistanteException extends RuntimeException {
+    public BoiteInexistanteException(String message) {
+        super(message);
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">CoordonneesInexistantesException.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/exception/CoordonneesInexistantesException.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('exception-2')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-exception-2">package com.polytech.polytech.exception;
+
+public class CoordonneesInexistantesException extends RuntimeException {
+    public CoordonneesInexistantesException(String message) {
+        super(message);
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">GestionnaireException.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/exception/GestionnaireException.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('exception-3')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-exception-3">package com.polytech.polytech.exception;
+
+import com.polytech.polytech.exception.BoiteInexistanteException;
+import com.polytech.polytech.exception.CoordonneesInexistantesException;
+import com.polytech.polytech.exception.UtilisateurInexistantException;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+@ControllerAdvice
+public class GestionnaireException {
+    //cette methode est pour les argument non valid par exemple : email ,nom ,etc : non valid ou vide (depend de ce que tu as utiliser dans RequestDto)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; argumentNonValid(MethodArgumentNotValidException notre_exception) {
+        Map&lt;String, String&gt; listerreurs = new HashMap&lt;&gt;();
+        notre_exception.getBindingResult().getFieldErrors().forEach(error -&gt; listerreurs.put(error.getField(), error.getDefaultMessage()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(listerreurs);
+    }
+
+    @ExceptionHandler(UtilisateurInexistantException.class)
+    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; gererUtilisateurInexistant(UtilisateurInexistantException notre_exception) {
+        Map&lt;String, String&gt; listerreurs = new HashMap&lt;&gt;();
+        listerreurs.put(&quot;id&quot;, &quot;Aucun utilisateur avec ce identifiant&quot;);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(listerreurs);
+    }
+
+    @ExceptionHandler(BoiteInexistanteException.class)
+    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; gererBoiteInexistant(BoiteInexistanteException notre_exception) {
+        Map&lt;String, String&gt; listerreurs = new HashMap&lt;&gt;();
+        listerreurs.put(&quot;id&quot;, &quot;Aucun Boite avec ce identifiant&quot;);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(listerreurs);
+    }
+
+    @ExceptionHandler(CoordonneesInexistantesException.class)
+    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; gererCoordonneesInexistant(CoordonneesInexistantesException notre_exception) {
+        Map&lt;String, String&gt; listerreurs = new HashMap&lt;&gt;();
+        listerreurs.put(&quot;id&quot;, &quot;Aucun Coordonnees avec ce identifiant&quot;);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(listerreurs);
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">ReservationInexistanteException.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/exception/ReservationInexistanteException.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('exception-4')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-exception-4">package com.polytech.polytech.exception;
+
+public class ReservationInexistanteException extends RuntimeException {
+    public ReservationInexistanteException(String message) {
+        super(message);
+    }
+}
+</code></pre>
+            </div>
+
+            <div class="file-card">
+                <div class="file-header">
+                    <div class="file-info">
+                        <div class="file-name">UtilisateurInexistantException.java</div>
+                        <div class="file-path">src/main/java/com/polytech/polytech/exception/UtilisateurInexistantException.java</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('exception-5')">📋 Copy</button>
+                </div>
+                <pre><code class="language-java" id="code-exception-5">package com.polytech.polytech.exception;
+
+public class UtilisateurInexistantException extends RuntimeException {
+    public UtilisateurInexistantException(String message) {
+        super(message);
+    }
+}
+</code></pre>
+            </div>
+
+        </div>
+
+    </main>
+
+    <div class="toast" id="toast">✓ Code copied to clipboard!</div>
+
+    <script>
+        // Copy code to clipboard
+        function copyCode(id) {
+            const codeElement = document.getElementById('code-' + id);
+            const content = codeElement.textContent;
+            
+            navigator.clipboard.writeText(content).then(() => {
+                showToast();
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
+        // Show toast notification
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // Initialize syntax highlighting
+        window.onload = function() {
+            hljs.highlightAll();
+            console.log('Loaded 37 Java files successfully!');
+        };
+    </script>
+</body>
+</html>
